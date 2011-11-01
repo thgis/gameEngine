@@ -13,6 +13,7 @@ import iglugis.gameengine.FPSCounter;
 import iglugis.gameengine.GLGame;
 import iglugis.gameengine.GLGraphics;
 import iglugis.gameengine.Screen;
+import iglugis.gameengine.SpriteBatcher;
 import iglugis.gameengine.Texture;
 import iglugis.gameengine.TextureRegion;
 import iglugis.gameengine.interfaces.IGame;
@@ -34,6 +35,7 @@ class ThomasTestScreen extends Screen {
 	Car car;
 	TextureRegion carTexture;
 	Texture texture;
+	SpriteBatcher batcher;
 	GLGraphics glGraphics;
 	FloatBuffer vertices;
 	FPSCounter fpsCounter;
@@ -46,31 +48,33 @@ class ThomasTestScreen extends Screen {
 	public ThomasTestScreen(IGame game) {
 		super(game);
 		glGraphics = ((GLGame)game).getGLGraphics();
-		texture = new Texture((GLGame)game, "car.jpg");
-		carTexture = new TextureRegion(texture, x, y, width, height)
+		texture = new Texture((GLGame)game, "cars.png");
+		carTexture = new TextureRegion(texture, 0, 0, 210, 143);
 		
-		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4*VERTEX_SIZE);
-		byteBuffer.order(ByteOrder.nativeOrder());
-		vertices = byteBuffer.asFloatBuffer();
+		batcher = new SpriteBatcher(glGraphics, 1);
+		
+//		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4*VERTEX_SIZE);
+//		byteBuffer.order(ByteOrder.nativeOrder());
+//		vertices = byteBuffer.asFloatBuffer();
 		//vertices.put( new float[] { 0.0f,	0.0f,	1,0,0,1,
 		//							319.0f,	0.0f,	0,1,0,1,
 		//							160.0f,	479.0f,	0,0,1,1});
 		//short[] indices ={ 0,1,2,2,3,0};
-		vertices.put( new float[] { 0.0f,	0.0f,	1,1,1,1,
-				0f,	10.0f,	1,1,1,1,
-				7.0f,	10.0f,	1,1,1,1,
-				7.0f, 0.0f, 1,1,1,1
-				});
-		vertices.flip();
-		byteBuffer = ByteBuffer.allocateDirect(6*2);
-		byteBuffer.order(ByteOrder.nativeOrder());
-		indices = byteBuffer.asShortBuffer();
-		indices.put(new short[] { 0,1,2,2,3,0});
-		indices.flip();
+//		vertices.put( new float[] { 0.0f,	0.0f,	1,1,1,1,
+//				0f,	10.0f,	1,1,1,1,
+//				7.0f,	10.0f,	1,1,1,1,
+//				7.0f, 0.0f, 1,1,1,1
+//				});
+//		vertices.flip();
+//		byteBuffer = ByteBuffer.allocateDirect(6*2);
+//		byteBuffer.order(ByteOrder.nativeOrder());
+//		indices = byteBuffer.asShortBuffer();
+//		indices.put(new short[] { 0,1,2,2,3,0});
+//		indices.flip();
 		
 		
 		fpsCounter = new FPSCounter();
-		car = new Car(100,100,7,10);
+		car = new Car(100,100,210,143);
 	}
 
 	@Override
@@ -122,22 +126,30 @@ class ThomasTestScreen extends Screen {
 		gl.glLoadIdentity();
 		gl.glOrthof(0, 320, 0, 480, 1, -1);
 		
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+//		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+//		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 		
 		
-		gl.glTranslatef(car.position.x, car.position.y, 0);
-		gl.glRotatef(car.angle * Vector2.TO_DEGREES + 90, 0, 0, 1);
-		//Log.d("Present car angle","Angle: " + String.valueOf(car.angle));
+//		gl.glTranslatef(car.position.x, car.position.y, 0);
+//		gl.glRotatef(car.angle * Vector2.TO_DEGREES + 90, 0, 0, 1);
+//		//Log.d("Present car angle","Angle: " + String.valueOf(car.angle));
+//		
+//		vertices.position(0);
+//		
+//		gl.glVertexPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+//		vertices.position(2);
+//		gl.glColorPointer(4, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
+//		
+//		//gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
+//		gl.glDrawElements(GL10.GL_TRIANGLES, 6, GL10.GL_UNSIGNED_SHORT, indices);
+//		
+		gl.glEnable(GL10.GL_BLEND); 
+		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA); 
+		gl.glEnable(GL10.GL_TEXTURE_2D); 
 		
-		vertices.position(0);
-		
-		gl.glVertexPointer(2, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
-		vertices.position(2);
-		gl.glColorPointer(4, GL10.GL_FLOAT, VERTEX_SIZE, vertices);
-		
-		//gl.glDrawArrays(GL10.GL_TRIANGLES, 0, 3);
-		gl.glDrawElements(GL10.GL_TRIANGLES, 6, GL10.GL_UNSIGNED_SHORT, indices);
+		batcher.beginBatch(texture);
+		batcher.drawSprite(car.position.x, car.position.y, car.bounds.width, car.bounds.height, car.angle * Vector2.TO_DEGREES, carTexture);
+		batcher.endBatch();
 		
 		fpsCounter.logFrame();
 	}

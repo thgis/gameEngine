@@ -19,8 +19,18 @@ public class Vertices {
 	        this.glGraphics = glGraphics; 
 	        this.hasColor = hasColor; 
 	        this.hasTexCoords = hasTexCoords; 
-	        this.vertexSize = (2 + (hasColor?4:0) + (hasTexCoords?2:0)) * 4; 
-	         
+	        //this.vertexSize = (2 + (hasColor?4:0) + (hasTexCoords?2:0)) * 4;
+	        int size = 2;
+	        
+	        if(hasColor)
+	        	size +=4;
+	        if(hasTexCoords)
+	        	size +=2;
+	        
+	        size *= 4;
+	        
+	        this.vertexSize = size;
+	        
 	        ByteBuffer buffer = ByteBuffer.allocateDirect(maxVertices * vertexSize); 
 	        buffer.order(ByteOrder.nativeOrder()); 
 	        vertices = buffer.asFloatBuffer(); 
@@ -48,8 +58,11 @@ public class Vertices {
         } 
          
         if(hasTexCoords) { 
-            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY); 
-            vertices.position(hasColor?6:2); 
+            gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+            if(hasColor)
+            	vertices.position(6);
+            else
+            	vertices.position(2);
             gl.glTexCoordPointer(2, GL10.GL_FLOAT, vertexSize, vertices); 
         } 
     } 
