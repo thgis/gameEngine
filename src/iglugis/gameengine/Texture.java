@@ -18,9 +18,11 @@ public class Texture {
 	int textureId;
 	int minFilter;
 	int magFilter;
+	int width;
+	int height;
 	
 	public Texture(GLGame glGame, String fileName){
-		this.glGraphics = 	glGame.getGLGraphics();
+		this.glGraphics = glGame.getGLGraphics();
 		this.fileIO = glGame.getFileIO();
 		this.fileName = fileName;
 		load();
@@ -36,6 +38,8 @@ public class Texture {
 		try{
 			in = fileIO.readAsset(fileName);
 			Bitmap bitmap = BitmapFactory.decodeStream(in);
+			height = bitmap.getHeight();
+			width = bitmap.getWidth();
 			gl.glBindTexture(GL10.GL_TEXTURE_2D, textureId);
 			GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
 			setFilters(GL10.GL_NEAREST,GL10.GL_NEAREST);

@@ -7,8 +7,6 @@ import java.nio.ShortBuffer;
 import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
-
-import android.content.Intent;
 import android.util.Log;
 
 import iglugis.gameengine.FPSCounter;
