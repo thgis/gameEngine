@@ -26,14 +26,16 @@ public class Car extends DyanimcGameObject {
 			angle = 0;
 		if(angle < -2*Math.PI)
 			angle = 0;
-		accel.x = FloatMath.cos(angle)*directionalAcc;
-		accel.y = FloatMath.sin(angle)*directionalAcc;
+		//accel.x = FloatMath.cos(angle)*directionalAcc;
+		//accel.y = FloatMath.sin(angle)*directionalAcc;
 		
-		this.velocity.x = this.accel.x;// * deltaTime;
-		this.velocity.y = this.accel.y;// * deltaTime;
+		//this.velocity.x = this.accel.x;// * deltaTime;
+		//this.velocity.y = this.accel.y;// * deltaTime;
+		this.speed += directionalAcc*deltaTime*0.1;
+		//if (this.speed<0)this.speed=0;
 		
-		this.position.x += this.velocity.x * deltaTime;
-		this.position.y += this.velocity.y * deltaTime;
+		this.position.x += FloatMath.cos(angle)*speed;//this.velocity.x * deltaTime;
+		this.position.y += FloatMath.sin(angle)*speed;//this.velocity.y * deltaTime;
 	}
 	public void updateWheel(float angleChange) {
 		angleChange = angleChange * Vector2.TO_RADIANS;
