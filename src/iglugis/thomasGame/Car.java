@@ -6,8 +6,8 @@ import iglugis.math.Vector2;
 
 public class Car extends DyanimcGameObject {
 	float wheelAngle;
-	float maxWheelAngle = 5 * Vector2.TO_RADIANS;
-	float maxDeltaAngle = 1 * Vector2.TO_RADIANS;
+	float maxWheelAngle = 2 * Vector2.TO_RADIANS;
+	float maxDeltaAngle = 0.25f * Vector2.TO_RADIANS;
 	private float directionalAcc;
 	private float speed;
 
