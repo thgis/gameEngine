@@ -13,12 +13,14 @@ import iglugis.gameengine.FPSCounter;
 import iglugis.gameengine.GLGame;
 import iglugis.gameengine.GLGraphics;
 import iglugis.gameengine.Screen;
+import iglugis.gameengine.Texture;
+import iglugis.gameengine.TextureRegion;
 import iglugis.gameengine.interfaces.IGame;
 import iglugis.gameengine.interfaces.IInput.TouchEvent;
 import iglugis.math.Vector2;
 
 public class ThomasTest extends GLGame {
-
+	
 	@Override
 	public Screen getStartScreen() {
 		// TODO Auto-generated method stub
@@ -30,6 +32,8 @@ public class ThomasTest extends GLGame {
 
 class ThomasTestScreen extends Screen {
 	Car car;
+	TextureRegion carTexture;
+	Texture texture;
 	GLGraphics glGraphics;
 	FloatBuffer vertices;
 	FPSCounter fpsCounter;
@@ -42,6 +46,8 @@ class ThomasTestScreen extends Screen {
 	public ThomasTestScreen(IGame game) {
 		super(game);
 		glGraphics = ((GLGame)game).getGLGraphics();
+		texture = new Texture((GLGame)game, "car.jpg");
+		carTexture = new TextureRegion(texture, x, y, width, height)
 		
 		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4*VERTEX_SIZE);
 		byteBuffer.order(ByteOrder.nativeOrder());
