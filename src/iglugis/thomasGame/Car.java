@@ -30,7 +30,7 @@ public class Car extends DyanimcGameObject {
 		
 		//this.velocity.x = this.accel.x;// * deltaTime;
 		//this.velocity.y = this.accel.y;// * deltaTime;
-		this.speed += directionalAcc*deltaTime*0.1;
+		this.speed += directionalAcc*deltaTime;
 		//if (this.speed<0)this.speed=0;
 		
 		this.position.x += FloatMath.cos(angle)*speed;//this.velocity.x * deltaTime;
