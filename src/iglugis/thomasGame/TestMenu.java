@@ -10,11 +10,11 @@ public class TestMenu extends Activity  implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-		
-		Button btn = (Button) findViewById(R.id.btnBack);
-		btn.setOnClickListener(this);
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.main);
+//		
+//		Button btn = (Button) findViewById(R.id.btnBack);
+//		btn.setOnClickListener(this);
 
 	}
 

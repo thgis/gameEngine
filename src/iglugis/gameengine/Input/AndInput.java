@@ -47,21 +47,17 @@ public class AndInput implements IInput {
 
 	@Override
 	public float getAccelX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return accelHandler.getAccelX();
 	}
 
 	@Override
 	public float getAccelY() {
-		// TODO Auto-generated method stub
-		
 		return accelHandler.getAccelY();
 	}
 
 	@Override
 	public float getAccelZ() {
-		// TODO Auto-generated method stub
-		return 0;
+		return accelHandler.getAccelZ();
 	}
 
 	@Override

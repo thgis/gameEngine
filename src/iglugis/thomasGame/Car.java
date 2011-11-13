@@ -6,10 +6,10 @@ import iglugis.math.Vector2;
 
 public class Car extends DyanimcGameObject {
 	float wheelAngle;
-	float maxWheelAngle = 2 * Vector2.TO_RADIANS;
-	float maxDeltaAngle = 0.25f * Vector2.TO_RADIANS;
+	float maxWheelAngle = 5.0f * Vector2.TO_RADIANS;
+	float maxDeltaAngle = 5.0f * Vector2.TO_RADIANS;
 	private float directionalAcc;
-	private float speed;
+	float speed;
 
 	public Car(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -39,12 +39,12 @@ public class Car extends DyanimcGameObject {
 	public void updateWheel(float angleChange) {
 		angleChange = angleChange * Vector2.TO_RADIANS;
 		
-		if(angleChange > maxDeltaAngle )
-			angleChange = maxDeltaAngle;
-		if(angleChange < -maxDeltaAngle)
-			angleChange = -maxDeltaAngle;
+//		if(angleChange > maxDeltaAngle )
+//			angleChange = maxDeltaAngle;
+//		if(angleChange < -maxDeltaAngle)
+//			angleChange = -maxDeltaAngle;
 		
-			wheelAngle += angleChange;
+			wheelAngle = angleChange;
 			
 		if(wheelAngle > maxWheelAngle)
 			wheelAngle = maxWheelAngle;
