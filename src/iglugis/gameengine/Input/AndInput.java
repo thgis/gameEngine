@@ -15,7 +15,7 @@ public class AndInput implements IInput {
 	public AndInput(Context context, View view, float scaleX, float scaleY){
 		accelHandler = new AccelerometerHandler(context);
 		keyHandler = new KeyboardHandler();
-		if(Integer.parseInt(VERSION.SDK) < 5)
+		if(VERSION.SDK_INT < 5)
 			touchHandler = new SingleTouchHandler(view,scaleX,scaleY);
 		else
 			touchHandler = new MultiTouchHandler(view,scaleX,scaleY);
